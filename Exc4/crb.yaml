@@ -1,0 +1,88 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: reader-rb
+subjects:
+  - kind: Group
+    name: cluster-reader-group
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cr-resource-reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: maintainer-rb
+subjects:
+  - kind: Group
+    name: cluster-maintainer-group
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cr-resource-maintainer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: security-manager-rb
+subjects:
+  - kind: Group
+    name: cluster-securitymanager-group
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cr-security-manager
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# RoleBinding для неймспейса client / owner
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dev-rb
+  namespace: client
+subjects:
+  - kind: Group
+    name: dev-group
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: dev-role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# RoleBinding для неймспейса client / owner
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ops-rb
+  namespace: client
+subjects:
+  - kind: Group
+    name: ops-group
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: ops-role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# RoleBinding для неймспейса client / owner
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: devops-rb
+  namespace: client
+subjects:
+  - kind: Group
+    name: devops-group
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: devops-role
+  apiGroup: rbac.authorization.k8s.io

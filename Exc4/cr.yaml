@@ -1,0 +1,96 @@
+# У первой группы есть право только на просмотр ресурсов кластера
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cr-resource-reader
+rules:
+  - apiGroups: [ "" ]
+    resources: ["pods", "services", "endpoints", "configmaps", "secrets", "persistentvolumeclaims"]
+    verbs: [ "get", "list", "watch" ]
+  - apiGroups: [ "apps" ]
+    resources: [ "deployments", "replicasets" ]
+    verbs: [ "get", "list", "watch" ]
+
+---
+# Вторая другая группа пользователей может настраивать кластер
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cr-resource-maintainer
+rules:
+  - apiGroups: [ "" ]
+    resources: ["pods", "services", "endpoints", "configmaps", "secrets", "persistentvolumeclaims"]
+    verbs: [ "get", "list", "watch", "create", "update", "delete", "patch" ]
+  - apiGroups: [ "apps" ]
+    resources: [ "deployments", "statefulsets", "daemonsets", "replicasets" ]
+    verbs: [ "get", "list", "watch", "create", "update", "delete", "patch" ]
+
+---
+# Управление ролями и сетевыми политиками в кластере
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cr-security-manager
+rules:
+  - apiGroups: [ "rbac.authorization.k8s.io" ]
+    resources: [ "roles", "rolebindings", "clusterroles", "clusterrolebindings" ]
+    verbs: [ "get", "list", "watch", "create", "update", "delete", "bind", "escalate" ]
+  - apiGroups: [ "networking.k8s.io" ]
+    resources: [ "networkpolicies" ]
+    verbs: [ "get", "list", "watch", "create", "update", "delete" ]
+
+
+---
+# Роль разработчика в неймспейсе client / owner
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: dev-role
+  namespace: client # owner
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps" ]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets"]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
+
+---
+# Роль инженера по эксплуатации в неймспейсе client / owner
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ops-role
+  namespace: client # owner
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "endpoints", "configmaps", "secrets", "persistentvolumeclaims"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets", "daemonsets", "replicasets"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["networkpolicies"]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
+
+---
+# Роль devops-инженера в неймспейсе client / owner
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: devops-role
+  namespace: client # owner
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "secrets", "persistentvolumeclaims", "events"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets", "daemonsets", "replicasets"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  - apiGroups: ["batch"]
+    resources: ["jobs", "cronjobs"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["networkpolicies"]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
+
