@@ -78,6 +78,9 @@
             </Array>
           </mxGeometry>
         </mxCell>
+        <mxCell id="cozsludxiQNsPCCPR9fs-1" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Добрый день, Константин!&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;br&gt;Обновленная диаграмма контейнеров на соседней вкладке внизу&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;c4_containers&lt;br&gt;&lt;/span&gt;&lt;div style=&quot;font-size: 18px;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 18px;&quot;&gt;изменения красным&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="68" width="330" height="290" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
